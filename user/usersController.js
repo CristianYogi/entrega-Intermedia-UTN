@@ -8,6 +8,8 @@ const formUsuario = (req,res,next) => {
 
 }
 
+
+//TRAER TODO LOS USUARIOS
 const getAllUsers = async (req, res, next) => {
 
     try {
@@ -17,16 +19,6 @@ const getAllUsers = async (req, res, next) => {
     } catch (error) {
         res.status(500).json({message: "Error interno del Servidor"})
     }
-    
-
-    // User.find().then((result) =>{
-    //     console.log(result)
-    //     res.status(200).json(result)
-        
-    // })
-    //     .catch((err) => {
-    //         res.status(404).json(err)
-    //     })
 
 }
 

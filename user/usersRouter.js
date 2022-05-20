@@ -6,9 +6,9 @@ const { getAllUsers, registerUser , formUsuario} = require("./usersController")
 
 router.get("/", getAllUsers)
 
-router.get("/registrar", formUsuario)
+router.get("/register", formUsuario)
 
-router.post("/", registerUser)
+router.post("/register", registerUser)
 
 module.exports = router
 
