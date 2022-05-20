@@ -29,6 +29,20 @@ server.get("/", (req, res) => {
 server.use("/users", require("./user/usersRouter"))
 
 
+server.use((req, res, next) => {
+    let error = new Error()
+    error.status = 404
+    error.message = "Resourse Not Found"
+    next(error)
+})
+
+server.use((error ,req, res, next) => {
+
+    res.status(error.status).json({status: error.status, message : error.message})
+
+})
+
+
 server.listen(port, (err) => {
     err ? console.log(`Error: ${err}`) : console.log(`App corre en http://localhost:${port}`)
 })
