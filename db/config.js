@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const uri = process.env.MONGODB_URI
+const uri = process.env.db_uri
 
 const options = {
     maxPoolSize: 10,
