@@ -28,6 +28,8 @@ server.get("/", (req, res) => {
 //USERS
 server.use("/users", require("./user/usersRouter"))
 
+server.use("/message", require("./messages/messageRoute"))
+
 
 server.use((req, res, next) => {
     let error = new Error()

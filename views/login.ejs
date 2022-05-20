@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs")%>
+    <link rel="stylesheet" href="../formStlye.css">
+</head>
+<body> 
+    <%- include("./partials/nav.ejs")%>    
+     <main>
+     <h1>Login</h1>
+
+     <form action="/users/login" method="post">
+        <div class="input-container">
+            <label for="userName">Nombre de Usuario</label>
+            <input type="text" maxlength="15" placeholder="Nombre de usuario" autocomplete="Nombre de usuario" name="userName" >
+        </div>
+        <div class="input-container">
+            <label for="password">Contraseña</label>
+            <input type="password" maxlength="15" placeholder="Ingrese Contraseña" autocomplete="Contraseña" name="password" >
+        </div>
+
+        <div id="boton-enviar-container"><input type="submit" value="Enviar"></div>
+        
+        <% if(datos.hasOwnProperty('errores')){ %>
+            <%for(let i = 0; i < datos.errores.length; i++) {%>
+                <p><%= datos.errores[i].msg%></p>
+            <% } %>
+        <% } %>
+        
+    </form>
+
+    </main>
+</body>
+</html>

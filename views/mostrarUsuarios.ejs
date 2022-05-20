@@ -7,7 +7,33 @@
     <%- include("./partials/nav.ejs")%>    
      <main>
      <h1>USUARIOS</h1>
-        <%= datos.result%>
+
+
+     <%if(datos.result){%>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>email</th>
+                <th>contraseña</th>
+            </tr>
+            
+            <%for (let i = 0; i < datos.result.length; i++) {%>
+                <tr>
+                <td><%= datos.result[i]._id%></td>
+                <td><%= datos.result[i].name%></td>
+                <td><%= datos.result[i].userName%></td>
+                <td><%= datos.result[i].email%></td>
+                <td><%= datos.result[i].password%></td>    
+                </tr>
+            <% } %>
+        </table>
+        <% } %>
+
+        
+
+
     </main>
 </body>
 </html>

@@ -3,6 +3,8 @@ const {User} = require("./usersModel")
 
 const {hashPassword, checkPassword} = require("../utlis/passwordHandler")
 
+const {tokenSing, tokenVerify} = require("../utlis/jwt")
+
 const formUsuario = (req,res,next) => {
 
     res.render("registrarUsuario.ejs", {datos : ""})
@@ -29,9 +31,7 @@ const getAllUsers = async (req, res, next) => {
         }
         
     } catch (error) {
-        error.status(500)
-        error.message("Internal Server Error")
-        next(error)
+        next()
     }
 
 }
@@ -39,17 +39,15 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async(req, res, next) => {
     try {
         const result = await User.findById(req.params.id)
-
-        if(result.length){
+        
+        if(result){
             res.render("index.ejs", {datos: {info : result}})
         }else{
-            next()
+            return next()
         } 
         
     } catch (error) {
-        error.status(500)
-        error.message("Internal Server Error")
-        next(error)
+        next()
     }
 }
 
@@ -86,10 +84,52 @@ const deleteUser = async (req,res,next) => {
         !result ? next(): res.status(200).json({message: "Usuario Eliminado.", result})
         
     } catch (error) {
-        error.status(500)
-        error.message("Interal Server Error")
+        error.status = 500
+        error.message = "Interal Server Error"
         next(error)
     }
 }
 
-module.exports = { getAllUsers, registerUser ,formUsuario, getUserById, updateUser, deleteUser}
+const login = async (req, res , next) => {
+    
+    
+    try {
+        const result = await User.find({userName : req.body.userName})
+
+           if(result.length){
+            
+            if(await checkPassword(req.body.password, result[0].password)){
+                const user = {
+                    id: result[0]._id,
+                    name: result[0].name,
+                    email: result[0].email
+                }
+
+                const tokenData = {
+                    token: await tokenSing(user, '2h'),
+                    user
+                }
+
+                res.status(200).json({message: `Te logeaste como ${user.name}.`, Token_Info: tokenData})
+
+           }else{
+            let error = new Error("Contraseña incorrecta")
+            error.status = 401
+            next(error)
+        }
+
+           }else{
+               return next()
+           }
+  
+
+    } catch (error) {
+        console.log(error)
+        error.status = 500
+        next(error)
+    }
+
+
+}
+
+module.exports = { getAllUsers, registerUser ,formUsuario, getUserById, updateUser, deleteUser, login}
