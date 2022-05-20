@@ -12,13 +12,6 @@ const UserSchema = new Schema({
 )
 
 
-const allUsers = async() =>{
-
-    
-
-
-}
-
 UserSchema.set("toJSON", {transform(doc, ret){
     ret.id = ret._id;
     delete ret.id;

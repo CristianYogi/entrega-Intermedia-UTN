@@ -39,21 +39,21 @@
      <main>
      <h1>Resetear Contraseña</h1>
 
-     <form action="/usuarios/reset/<%= datos.token%>" method="post">
+     <form action="/users" method="post">
         <div>
-            <label for="password_1">Contraseña Nueva</label>
-            <input type="password" maxlength="15" placeholder="Introdusca la nueva contraseña" autocomplete="Contraseña Nueva" name="password_1" autofocus>
+            <label for="name">Nombre</label>
+            <input type="text" maxlength="15" placeholder="Introdusca lNombre" autocomplete="Nombre" name="name" >
         </div>
         <div>
-            <label for="password_1">Contraseña Nueva</label>
-            <input type="password" maxlength="15" placeholder="Introdusca la nueva contraseña" autocomplete="Contraseña Nueva" name="password_1" autofocus>
+            <label for="userName">Contraseña Nueva</label>
+            <input type="text" maxlength="15" placeholder="Introdusca nombre de usuario" autocomplete="Contraseña Nueva" name="userName" >
         </div>
         <div>
-            <label for="password_2">Repetir contraseña</label>
-            <input type="password" maxlength="15" placeholder="Reescriba la contraseña" autocomplete="Repita la contraseña" name="password_2" autofocus>
+            <label for="email">Repetir contraseña</label>
+            <input type="text" maxlength="15" placeholder="Reescriba email" autocomplete="email" name="email" >
         </div>
         <div>
-            <label for="password_1">Contraseña Nueva</label>
+            <label for="password">Contraseña Nueva</label>
             <input type="password" maxlength="15" placeholder="Introdusca la nueva contraseña" autocomplete="Contraseña Nueva" name="password_1" autofocus>
         </div>
 

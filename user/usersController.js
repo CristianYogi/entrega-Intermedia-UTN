@@ -1,6 +1,13 @@
 const { send } = require("express/lib/response")
 const {User} = require("./usersModel")
 
+
+const formUsuario = (req,res,next) => {
+
+    res.render("registrarUsuario.ejs")
+
+}
+
 const getAllUsers = async (req, res, next) => {
 
     try {
@@ -37,4 +44,4 @@ const registerUser = async (req, res, next) =>{
 
 }
 
-module.exports = { getAllUsers, registerUser }
+module.exports = { getAllUsers, registerUser ,formUsuario}
