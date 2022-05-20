@@ -5,6 +5,7 @@ const getAllUsers = async (req, res, next) => {
 
     try {
         const result = await User.find()
+        console.log(result)
         res.status(200).json({message: "Usuarios encontrados", result})    
     } catch (error) {
         res.status(500).json({message: "Error interno del Servidor"})
