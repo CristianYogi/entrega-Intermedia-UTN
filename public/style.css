@@ -1,15 +1,35 @@
+
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
 nav{
-    height: 150px;
+    height: 100px;
+    background-color: lightseagreen;
 }
 
 a{
     text-decoration: none;
+    font-size: 1.2em;
+    color: black;
 }
 
-nav-menu{
+li{
+    list-style: none;
+}
+
+#nav-menu{
     display: flex;
     width: 50%;
+    height: 100%;
     align-items: center;
     justify-content: space-evenly;
-    background-color: lightgoldenrodyellow;
+}
+
+.nav-boton{
+    padding: 10px;
+}
+.nav-boton:hover{
+    background-color: rgba(0, 255, 255, 0.202);
 }

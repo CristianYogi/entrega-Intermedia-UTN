@@ -9,18 +9,27 @@ main{
 
 }
 
-#userName{
-    color:red;
-}
-
 input{
     width: 200px;
     margin-bottom: 30px;
+
     
 }
 
 form{
     display: flex;
     flex-direction: column;
+    width: 20%;
+    
+}
+
+.input-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+#boton-enviar-container{
+    display: flex;
     align-items: center;
+    justify-content: center;
 }

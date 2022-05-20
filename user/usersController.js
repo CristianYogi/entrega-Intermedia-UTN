@@ -14,8 +14,7 @@ const getAllUsers = async (req, res, next) => {
 
     try {
         const result = await User.find()
-        console.log(result)
-        res.status(200).json({message: "Usuarios encontrados", result})    
+        res.render("mostrarUsuarios.ejs", {datos: {result}})   
     } catch (error) {
         res.status(500).json({message: "Error interno del Servidor"})
     }
@@ -30,7 +29,7 @@ const registerUser = async (req, res, next) =>{
         if(error){
             res.send(error)
         }else{
-            res.status(200).json({result})
+            res.render("index.ejs")
         }
     })
 

@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
     <%- include("./partials/head.ejs")%>
-    <link rel="stylesheet" href="../public/formStlye.css">
+    <link rel="stylesheet" href="../formStlye.css">
 </head>
-<body>     
+<body> 
+    <%- include("./partials/nav.ejs")%>    
      <main>
-     <h1>Resetear Contraseña</h1>
+     <h1>Reegistrar Usuario</h1>
 
      <form action="/users/register" method="post">
-        <div>
+        <div class="input-container">
             <label for="name">Nombre</label>
-            <input type="text" maxlength="15" placeholder="Introdusca lNombre" autocomplete="Nombre" name="name" >
+            <input type="text" maxlength="15" placeholder="Nombre" autocomplete="Nombre" name="name" >
         </div>
-        <div>
-            <label for="userName">Contraseña Nueva</label>
-            <input type="text" maxlength="15" placeholder="Introdusca nombre de usuario" autocomplete="Contraseña Nueva" name="userName" >
+        <div class="input-container">
+            <label for="userName">Nombre de Usuario</label>
+            <input type="text" maxlength="15" placeholder="Nombre de usuario" autocomplete="Nombre de Usuario" name="userName" >
         </div>
-        <div>
-            <label for="email">Repetir contraseña</label>
-            <input type="text" maxlength="15" placeholder="Reescriba email" autocomplete="email" name="email" >
+        <div class="input-container">
+            <label for="email">Email</label>
+            <input type="text" maxlength="15" placeholder="email" autocomplete="email" name="email" >
         </div>
-        <div>
-            <label for="password">Contraseña Nueva</label>
-            <input type="password" maxlength="15" placeholder="Introdusca la nueva contraseña" autocomplete="Contraseña Nueva" name="password" autofocus>
+        <div class="input-container">
+            <label for="password">Contraseña</label>
+            <input type="password" maxlength="15" placeholder="Introdusca la contraseña" autocomplete="Contraseña" name="password" autofocus>
         </div>
 
-        <input type="submit" value="Enviar">
+        <div id="boton-enviar-container"><input type="submit" value="Enviar"></div>
+        
     </form>
 
     </main>
