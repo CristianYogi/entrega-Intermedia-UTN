@@ -3,7 +3,7 @@ const express = require("express")
 const server = express()
 const path = require('path')
 
-const port = process.env.port
+const port = process.env.PORT
 
 server.use(express.static('public'))
 
