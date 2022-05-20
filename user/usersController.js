@@ -4,7 +4,9 @@ const {User} = require("./usersModel")
 const getAllUsers = async (req, res, next) => {
 
     User.find().then((result) =>{
+        console.log(result)
         res.status(200).json(result)
+        
     })
         .catch((err) => {
             res.status(404).json(err)
