@@ -12,12 +12,14 @@ const UserSchema = new Schema({
 )
 
 
-UserSchema.set("toJSON", {transform(doc, ret){
-    ret.id = ret._id;
-    delete ret.id;
-    delete ret.password;
-    delete ret.__v;
-}})
+// UserSchema.set("toJSON", {
+//     transform(doc, ret){
+//         ret.id = ret._id
+//         delete ret.id
+//         delete ret.password
+//         delete ret.__v
+//     }
+// })
 
 
 const User = mongoose.model("User", UserSchema, "User")

@@ -22,7 +22,7 @@ server.use(express.urlencoded({extended: true}))
 
 //PRIMER RESPUESTA
 server.get("/", (req, res) => {
-    res.render("index.ejs")
+    res.render("index.ejs", {datos: {}})
 })
 
 //USERS
