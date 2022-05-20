@@ -3,14 +3,22 @@ const {User} = require("./usersModel")
 
 const getAllUsers = async (req, res, next) => {
 
-    User.find().then((result) =>{
-        console.log(result)
-        res.status(200).json(result)
+    try {
+        const result = await User.find()
+        res.status(200).json({message: "Usuarios encontrados", result})    
+    } catch (error) {
+        res.status(500).json({message: "Error interno del Servidor"})
+    }
+    
+
+    // User.find().then((result) =>{
+    //     console.log(result)
+    //     res.status(200).json(result)
         
-    })
-        .catch((err) => {
-            res.status(404).json(err)
-        })
+    // })
+    //     .catch((err) => {
+    //         res.status(404).json(err)
+    //     })
 
 }
 
