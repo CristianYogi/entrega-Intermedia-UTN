@@ -22,7 +22,7 @@ server.use(express.urlencoded({extended: true}))
 
 //PRIMER RESPUESTA
 server.get("/", (req, res) => {
-    res.send("<h1>Mi API</h1>")
+    res.render("index.ejs")
 })
 
 //USERS
