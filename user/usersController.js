@@ -178,7 +178,7 @@ const forgotPass = async(req, res, next) => {
             email: response[0].email
         }
         const token = await tokenSing(user, '15m')
-        const link = `http://localhost:8000/users/reset/${token}` 
+        const link = `https://api-entrega-intermedia.herokuapp.com/users/reset/${token}` 
         
         const emailDetails = {
             from: "soporte@mydomain.com",
