@@ -1,18 +1,47 @@
-
 const Message = require("./messageModel")
 
 const postMessage = async (req, res, next) => {
 
-    const newMessage = new Message({...req.body})
-    newMessage.save((error, result) =>{
-        if(error){
+    const newMessage = new Message({
+        ...req.body
+    })
+    newMessage.save((error, result) => {
+        if (error) {
             res.send(error)
-        }else{
+        } else {
             res.status(200).json({message: "Se cargo correctamente"})
         }
     })
 
 }
 
+const getAllMessages = async (req, res, next) => {
 
-module.exports = {postMessage}
+    try {
+        const messageData = {
+            __v: 0,
+            createdAt: 0,
+            updatedAt: 0
+        }
+        const result = await Message.find({}, messageData)
+
+        if (result.length) {
+            res.render("mostrarMensajes.ejs", {datos: {result}})
+        } else {
+            next()
+        }
+
+    } catch (error) {
+        error.status = '500'
+        error.message = 'Internal Server Error'
+        next()
+    }
+
+
+}
+
+
+module.exports = {
+    postMessage,
+    getAllMessages
+}

@@ -3,7 +3,10 @@ const { render } = require("express/lib/response")
 
 const isAuth = require("../middleware/isAuth")
 
-const {postMessage} = require ("./messageController")
+const {postMessage, getAllMessages} = require ("./messageController")
+
+
+router.get("/", getAllMessages)
 
 router.post("/post", isAuth ,postMessage)
 

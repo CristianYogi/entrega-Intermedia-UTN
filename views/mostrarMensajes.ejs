@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs")%>
+</head>
+<body> 
+    <%- include("./partials/nav.ejs")%>    
+     <main>
+     <h1>USUARIOS</h1>
+
+
+     <%if(datos.result){%>
+        <table>
+            <tr>
+                <th>Titulo</th>
+                <th>Texto</th>
+            </tr>
+            
+            <%for (let i = 0; i < datos.result.length; i++) {%>
+                <tr>
+                <td><%= datos.result[i].title%></td>
+                <td><%= datos.result[i].body%></td>
+                </tr>
+            <% } %>
+        </table>
+        <% } %>
+
+        
+
+
+    </main>
+</body>
+</html>
