@@ -1,9 +1,22 @@
 const {send} = require("express/lib/response")
 const {User} = require("./usersModel")
 
+const nodemailer = require("nodemailer")
+
 const {hashPassword, checkPassword} = require("../utlis/passwordHandler")
 
 const {tokenSing, tokenVerify} = require("../utlis/jwt")
+
+
+const transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.mail_user,
+      pass: process.env.mail_pass
+    }
+  });
+
 
 const formUsuario = (req, res, next) => {
 
@@ -70,7 +83,7 @@ const updateUser = async (req, res, next) => {
     } catch (error) {
         error.status = '500'
         error.message = 'Internal Server Error'
-        next()
+        next(error)
     }
 }
 
@@ -153,6 +166,86 @@ const login = async (req, res, next) => {
 
 }
 
+const forgotPass = async(req, res, next) => {
+    
+    try {
+        const response = await User.find({email: req.body.email})
+        if(!response.length) return next() 
+
+        const user = {
+            id: response[0]._id,
+            name: response[0].name,
+            email: response[0].email
+        }
+        const token = await tokenSing(user, '15m')
+        const link = `http://localhost:8000/users/reset/${token}` 
+        
+        const emailDetails = {
+            from: "soporte@mydomain.com",
+            to: user.email,
+            subject: "Password Recovery",
+            html: `
+            <h2>Password Recovery Service</h2>
+            <p>Click en el link para Resetear la contraseña.</p>
+            <a href="${link}">-----Tremendo link-----</a>
+            `
+        }  
+    
+        transport.sendMail(emailDetails, (err, data) => {
+            if(err){
+
+                err.status = 500
+                err.message = "Internal Server Error"
+                return next(err)
+            }
+            
+            res.render("recuperarPass.ejs", {datos: {link, message:"Funciona con mails, pero para que se pueda probar el link lo muestro aca tambien"}})
+            // res.status(200).json({message: `Ey ${user.name} se te envio el email a ${user.email}, miralo. Tenes 15 minutasos antes de que cages.`})
+        })
+
+    } catch (error) {
+        
+        error.status = 500
+        error.message = 'Internal Server Error'
+        next(next)
+    }
+
+}
+
+const formResetPass = async (req, res, next) => {
+    const {token} = req.params
+    const tokenStatus = await tokenVerify(token) //Estan los datos del usuario
+
+    if(tokenStatus instanceof Error){
+        res.status(403).json({message: "Invalid Token"})
+    }else{
+        res.render("formResetPass.ejs", {datos: {token}})
+    }
+
+    
+} 
+
+const newPass = async(req, res, next) =>{ 
+
+    const { token } = req.params
+    const tokenStatus = await tokenVerify(token) 
+
+    if(tokenStatus instanceof Error){
+        res.status(403).json({message: "Invalid Token"})
+    }
+    
+    const password = await hashPassword(req.body.password_1)
+
+    try {
+        const result = await User.findByIdAndUpdate(tokenStatus.id,{password})
+        res.status(200).json(result)
+    } catch (error) {
+        error.status = '500'
+        error.message = 'Internal Server Error'
+        next(error)
+    }
+
+}
 
 module.exports = {
     getAllUsers,
@@ -161,5 +254,8 @@ module.exports = {
     getUserById,
     updateUser,
     deleteUser,
-    login
+    login,
+    forgotPass,
+    formResetPass,
+    newPass
 }

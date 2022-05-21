@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs")%>
+    <link rel="stylesheet" href="../formStlye.css">
+</head>
+<body> 
+    <%- include("./partials/nav.ejs")%>    
+     <main>
+     <h1>Recuperar Contraseña</h1>
+
+     <form action="/users/forgot-pass" method="post">
+        <div class="input-container">
+            <label for="email">Nombre de Usuario</label>
+            <input type="text" placeholder="Email" autocomplete="Email" name="email" >
+        </div>
+        <div id="boton-enviar-container"><input type="submit" value="Enviar"></div>
+    </form>
+
+    <style>
+        #link{
+            text-align: center;
+        }
+    </style>
+
+    <%if(datos.hasOwnProperty('link')){%>
+        <p id="link"> <%=  datos.link %></p>
+        <p> <%= datos.message%></p>
+    <% } %>
+
+    </main>
+</body>
+</html>

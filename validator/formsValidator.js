@@ -59,6 +59,30 @@ const validatorLoginUser = [
     
         ]
 
-module.exports = {validatorCreateUser, validatorLoginUser}
+const validatorResetearPass = [
+    check("password_1")
+        .exists()
+        .isLength({min: 8, max: 15}).withMessage("entre 8 y 15 pibe")
+        .trim(),
+    check("password_2")
+        .custom(async (password_2, {req}) => {
+            if(req.body.password_1 != password_2){
+                throw new Error("Ambos password tienen que ser iguales boludo.")
+            }
+        }),
+        (req, res, next) => {
+            const {token} = req.params
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                const arrWarnings = errors.array()
+                
+                res.render('formResetPass.ejs', {datos: {token, errores : arrWarnings}})
+            }else{
+                return next()
+            }
+        }
+]
+
+module.exports = {validatorCreateUser, validatorLoginUser, validatorResetearPass}
 
 

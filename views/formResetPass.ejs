@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs")%>
+    <link rel="stylesheet" href="../formStlye.css">
+</head>
+<body> 
+    <%- include("./partials/nav.ejs")%>    
+     <main>
+     <h1>Recuperar Contraseña</h1>
+     
+     <form action="/users/new-pass/<%= datos.token%>" method="post">
+        <div class="input-container">
+            <label for="password_1">Contraseña</label>
+            <input type="password" placeholder="Password" autocomplete="Password" name="password_1" >
+        </div>
+        <div class="input-container">
+            <label for="password_2">Repita Contraseña</label>
+            <input type="password" placeholder="Password" autocomplete="Password" name="password_2" >
+        </div>
+
+        <div id="boton-enviar-container"><input type="submit" value="Enviar"></div>
+
+        <% if(datos.hasOwnProperty('errores')){ %>
+            <%for(let i = 0; i < datos.errores.length; i++) {%>
+                <p><%= datos.errores[i].msg%></p>
+            <% } %>
+        <% } %>
+        
+    </form>
+    </main>
+</body>
+</html>
