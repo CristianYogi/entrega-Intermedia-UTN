@@ -211,7 +211,7 @@ const forgotPass = async(req, res, next) => {
             }
             
             res.render("recuperarPass.ejs", {datos: {link, message:"Funciona con mails, pero para que se pueda probar el link lo muestro aca tambien"}})
-            // res.status(200).json({message: `Ey ${user.name} se te envio el email a ${user.email}, miralo. Tenes 15 minutasos antes de que cages.`})
+            
         })
 
     } catch (error) {
