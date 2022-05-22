@@ -62,12 +62,12 @@ const validatorLoginUser = [
 const validatorResetearPass = [
     check("password_1")
         .exists()
-        .isLength({min: 8, max: 15}).withMessage("entre 8 y 15 pibe")
+        .isLength({min: 8, max: 15}).withMessage("entre 8 y 15")
         .trim(),
     check("password_2")
         .custom(async (password_2, {req}) => {
             if(req.body.password_1 != password_2){
-                throw new Error("Ambos password tienen que ser iguales boludo.")
+                throw new Error("Ambos password tienen que ser iguales.")
             }
         }),
         (req, res, next) => {

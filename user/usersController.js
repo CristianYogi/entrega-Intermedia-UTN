@@ -46,7 +46,7 @@ const getAllUsers = async (req, res, next) => {
         }
 
     } catch (error) {
-        error.status = '500'
+        error.status = 500
         error.message = 'Internal Server Error'
         next()
     }
@@ -78,10 +78,15 @@ const getUserById = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
     try {
+
+        if(req.params.id.length != 24) return next() //LOS ID TIENEN QUE SER DE 24 CARACTERES HEXADECIMALES O LA BASE DE DATOS ME DEVUELVE UN ERROR
+        
         const result = await User.findByIdAndUpdate(req.params.id, req.body)
-        res.status(200).json(result)
+
+        !result ? next() : res.status(200).json(result)
+        
     } catch (error) {
-        error.status = '500'
+        error.status = 500
         error.message = 'Internal Server Error'
         next(error)
     }
@@ -112,10 +117,17 @@ const registerUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
     try {
-        const result = await User.findOneAndDelete(req.params.id)
+        
+        if(req.params.id.length != 24) return next()//LOS ID TIENEN QUE SER DE 24 CARACTERES HEXADECIMALES O LA BASE DE DATOS ME DEVUELVE UN ERROR
 
-        ! result ? next() : res.status(200).json({message: "Usuario Eliminado.", result})
-
+        const result = await User.deleteOne({_id: req.params.id})
+        
+        if(result.deletedCount){
+            res.status(200).json({message: "Usuario Eliminado.", result})
+        }else{
+            next()
+        }
+        
     } catch (error) {
         error.status = 500
         error.message = "Interal Server Error"
@@ -124,8 +136,7 @@ const deleteUser = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-
-
+    
     try {
         const result = await User.find({userName: req.body.userName})
 
@@ -240,7 +251,7 @@ const newPass = async(req, res, next) =>{
         const result = await User.findByIdAndUpdate(tokenStatus.id,{password})
         res.status(200).json(result)
     } catch (error) {
-        error.status = '500'
+        error.status = 500
         error.message = 'Internal Server Error'
         next(error)
     }

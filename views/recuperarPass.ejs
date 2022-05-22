@@ -19,12 +19,15 @@
 
     <style>
         #link{
-            text-align: center;
+            width: 60%;
+            height: 30vh;
+            /* text-align: center; */
+            word-wrap: break-word;
         }
     </style>
 
     <%if(datos.hasOwnProperty('link')){%>
-        <p id="link"> <%=  datos.link %></p>
+        <div id="link"><%=  datos.link %></div>
         <p> <%= datos.message%></p>
     <% } %>
 
