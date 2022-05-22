@@ -40,8 +40,33 @@ const getAllMessages = async (req, res, next) => {
 
 }
 
+const getPostByTitle = async (req, res, next) => {
+
+    try {
+        const messageData = {
+            __v: 0,
+            createdAt: 0,
+            updatedAt: 0
+        }
+        const result = await Message.find({title: req.params.title}, messageData)
+
+        if (result.length) {
+            res.status(200).json({result})
+        } else {
+            next()
+        }
+
+    } catch (error) {
+        error.status = '500'
+        error.message = 'Internal Server Error'
+        next()
+    }
+
+
+}
 
 module.exports = {
     postMessage,
-    getAllMessages
+    getAllMessages,
+    getPostByTitle
 }
